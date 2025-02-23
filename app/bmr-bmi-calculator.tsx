@@ -12,7 +12,7 @@ import LanguageSelector from './components/LanguageSelector'
 import InputForm from './components/InputForm'
 import ResultsDisplay from './components/ResultsDisplay'
 import { messages, SupportedLanguage, isRTL } from './utils/languageUtils'
-
+import { getLocalStorage, setLocalStorage } from './utils/localStorage'
 const saveToLocalStorage = (data: {
   unit: Unit;
   gender: 'male' | 'female';
@@ -27,16 +27,16 @@ const saveToLocalStorage = (data: {
   daysToTarget: number | null;
   macros: { protein: number; fat: number; carbs: number } | null;
 }) => {
-  localStorage.setItem('bmrBmiCalculatorData', JSON.stringify(data));
+  setLocalStorage('bmrBmiCalculatorData', JSON.stringify(data));
 }
 
 const loadFromLocalStorage = () => {
-  const data = localStorage.getItem('bmrBmiCalculatorData');
+  const data = getLocalStorage('bmrBmiCalculatorData');
   return data ? JSON.parse(data) : null;
 }
 
 const saveLanguageToLocalStorage = (lang: SupportedLanguage) => {
-  localStorage.setItem('bmrBmiCalculatorLanguage', lang);
+  setLocalStorage('bmrBmiCalculatorLanguage', lang);
 }
 
 interface BMRBMICalculatorProps {
@@ -225,7 +225,7 @@ const BMRBMICalculator: React.FC<BMRBMICalculatorProps> = ({ language, setLangua
 
 export default function WrappedBMRBMICalculator() {
   const [language, setLanguage] = useState<SupportedLanguage>(() => {
-    const savedLanguage = localStorage.getItem('bmrBmiCalculatorLanguage') as SupportedLanguage;
+    const savedLanguage = getLocalStorage('bmrBmiCalculatorLanguage') as SupportedLanguage;
     return savedLanguage || 'en-GB';
   });
 
