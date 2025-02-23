@@ -59,7 +59,7 @@ export function calculateTargetWeight(height: number, unit: Unit): number {
     heightInMeters = height / 100; // cm to meters
   }
 
-  let targetWeightKg = targetBMI * (heightInMeters * heightInMeters);
+  const targetWeightKg = targetBMI * (heightInMeters * heightInMeters);
 
   if (unit === 'imperial') {
     return targetWeightKg * 2.20462; // kg to lbs
